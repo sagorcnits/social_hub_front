@@ -1,13 +1,6 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import AboutPage from '~/features/about/about'
 
 export const Route = createFileRoute('/_public/about')({
-  component: About,
+  component: AboutPage,
 })
-
-function About() {
-  return (
-    <main class="page-wrap px-4 py-12">
-      <h1>somthine</h1>
-    </main>
-  )
-}

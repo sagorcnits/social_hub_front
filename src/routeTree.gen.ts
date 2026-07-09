@@ -14,8 +14,6 @@ import { Route as PublicRouteRouteImport } from './routes/_public/route'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as DashboardPostsRouteImport } from './routes/dashboard/posts'
-import { Route as PublicVideoRouteImport } from './routes/_public/video'
-import { Route as PublicUiRouteImport } from './routes/_public/ui'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -42,16 +40,6 @@ const DashboardPostsRoute = DashboardPostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const PublicVideoRoute = PublicVideoRouteImport.update({
-  id: '/video',
-  path: '/video',
-  getParentRoute: () => PublicRouteRoute,
-} as any)
-const PublicUiRoute = PublicUiRouteImport.update({
-  id: '/ui',
-  path: '/ui',
-  getParentRoute: () => PublicRouteRoute,
-} as any)
 const PublicAboutRoute = PublicAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -62,15 +50,11 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof PublicAboutRoute
-  '/ui': typeof PublicUiRoute
-  '/video': typeof PublicVideoRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
-  '/ui': typeof PublicUiRoute
-  '/video': typeof PublicVideoRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -80,31 +64,20 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
-  '/_public/ui': typeof PublicUiRoute
-  '/_public/video': typeof PublicVideoRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/_public/': typeof PublicIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/dashboard'
-    | '/about'
-    | '/ui'
-    | '/video'
-    | '/dashboard/posts'
-    | '/dashboard/'
+  fullPaths: '/' | '/dashboard' | '/about' | '/dashboard/posts' | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/ui' | '/video' | '/dashboard/posts' | '/' | '/dashboard'
+  to: '/about' | '/dashboard/posts' | '/' | '/dashboard'
   id:
     | '__root__'
     | '/_public'
     | '/dashboard'
     | '/_public/about'
-    | '/_public/ui'
-    | '/_public/video'
     | '/dashboard/posts'
     | '/_public/'
     | '/dashboard/'
@@ -152,20 +125,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof DashboardPostsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/_public/video': {
-      id: '/_public/video'
-      path: '/video'
-      fullPath: '/video'
-      preLoaderRoute: typeof PublicVideoRouteImport
-      parentRoute: typeof PublicRouteRoute
-    }
-    '/_public/ui': {
-      id: '/_public/ui'
-      path: '/ui'
-      fullPath: '/ui'
-      preLoaderRoute: typeof PublicUiRouteImport
-      parentRoute: typeof PublicRouteRoute
-    }
     '/_public/about': {
       id: '/_public/about'
       path: '/about'
@@ -178,15 +137,11 @@ declare module '@tanstack/solid-router' {
 
 interface PublicRouteRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
-  PublicUiRoute: typeof PublicUiRoute
-  PublicVideoRoute: typeof PublicVideoRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
-  PublicUiRoute: PublicUiRoute,
-  PublicVideoRoute: PublicVideoRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
