@@ -6,10 +6,10 @@ import {
 } from '@tanstack/solid-router'
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 
-import { HydrationScript } from 'solid-js/web'
 import { Suspense } from 'solid-js'
+import { HydrationScript } from 'solid-js/web'
 
-import Header from '../components/Header'
+import Header from '../components/shared/Header'
 
 import styleCss from '../styles.css?url'
 

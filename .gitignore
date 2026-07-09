@@ -1,4 +1,5 @@
 node_modules
+CLAUDE.md
 .DS_Store
 dist
 dist-ssr
@@ -9,4 +10,6 @@ dist-ssr
 .wrangler
 .output
 .vinxi
+.claude
+
 __unconfig*
