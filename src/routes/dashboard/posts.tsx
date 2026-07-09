@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/solid-router'
 
-export const Route = createFileRoute('/video')({
+export const Route = createFileRoute('/dashboard/posts')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/video"!</div>
+  return <div>Hello "/dashboard/posts"!</div>
 }

@@ -42,7 +42,7 @@ import {
   TooltipTrigger,
 } from '~/components/ui/tooltip'
 
-export const Route = createFileRoute('/ui')({ component: UiShowcase })
+export const Route = createFileRoute('/_public/ui')({ component: UiShowcase })
 
 function UiShowcase() {
   return (

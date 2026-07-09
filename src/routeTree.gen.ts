@@ -9,104 +9,208 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VideoRouteImport } from './routes/video'
-import { Route as UiRouteImport } from './routes/ui'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as PublicRouteRouteImport } from './routes/_public/route'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as DashboardPostsRouteImport } from './routes/dashboard/posts'
+import { Route as PublicVideoRouteImport } from './routes/_public/video'
+import { Route as PublicUiRouteImport } from './routes/_public/ui'
+import { Route as PublicAboutRouteImport } from './routes/_public/about'
 
-const VideoRoute = VideoRouteImport.update({
-  id: '/video',
-  path: '/video',
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UiRoute = UiRouteImport.update({
-  id: '/ui',
-  path: '/ui',
+const PublicRouteRoute = PublicRouteRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
+const DashboardPostsRoute = DashboardPostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const PublicVideoRoute = PublicVideoRouteImport.update({
+  id: '/video',
+  path: '/video',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
+const PublicUiRoute = PublicUiRouteImport.update({
+  id: '/ui',
+  path: '/ui',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PublicRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/ui': typeof UiRoute
-  '/video': typeof VideoRoute
+  '/': typeof PublicIndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/about': typeof PublicAboutRoute
+  '/ui': typeof PublicUiRoute
+  '/video': typeof PublicVideoRoute
+  '/dashboard/posts': typeof DashboardPostsRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/ui': typeof UiRoute
-  '/video': typeof VideoRoute
+  '/about': typeof PublicAboutRoute
+  '/ui': typeof PublicUiRoute
+  '/video': typeof PublicVideoRoute
+  '/dashboard/posts': typeof DashboardPostsRoute
+  '/': typeof PublicIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/ui': typeof UiRoute
-  '/video': typeof VideoRoute
+  '/_public': typeof PublicRouteRouteWithChildren
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/ui': typeof PublicUiRoute
+  '/_public/video': typeof PublicVideoRoute
+  '/dashboard/posts': typeof DashboardPostsRoute
+  '/_public/': typeof PublicIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/ui' | '/video'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/about'
+    | '/ui'
+    | '/video'
+    | '/dashboard/posts'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/ui' | '/video'
-  id: '__root__' | '/' | '/about' | '/ui' | '/video'
+  to: '/about' | '/ui' | '/video' | '/dashboard/posts' | '/' | '/dashboard'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/dashboard'
+    | '/_public/about'
+    | '/_public/ui'
+    | '/_public/video'
+    | '/dashboard/posts'
+    | '/_public/'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  UiRoute: typeof UiRoute
-  VideoRoute: typeof VideoRoute
+  PublicRouteRoute: typeof PublicRouteRouteWithChildren
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
 }
 
 declare module '@tanstack/solid-router' {
   interface FileRoutesByPath {
-    '/video': {
-      id: '/video'
-      path: '/video'
-      fullPath: '/video'
-      preLoaderRoute: typeof VideoRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ui': {
-      id: '/ui'
-      path: '/ui'
-      fullPath: '/ui'
-      preLoaderRoute: typeof UiRouteImport
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/': {
-      id: '/'
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/dashboard/posts': {
+      id: '/dashboard/posts'
+      path: '/posts'
+      fullPath: '/dashboard/posts'
+      preLoaderRoute: typeof DashboardPostsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_public/video': {
+      id: '/_public/video'
+      path: '/video'
+      fullPath: '/video'
+      preLoaderRoute: typeof PublicVideoRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/ui': {
+      id: '/_public/ui'
+      path: '/ui'
+      fullPath: '/ui'
+      preLoaderRoute: typeof PublicUiRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRouteRoute
     }
   }
 }
 
+interface PublicRouteRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicUiRoute: typeof PublicUiRoute
+  PublicVideoRoute: typeof PublicVideoRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
+  PublicUiRoute: PublicUiRoute,
+  PublicVideoRoute: PublicVideoRoute,
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
+  PublicRouteRouteChildren,
+)
+
+interface DashboardRouteRouteChildren {
+  DashboardPostsRoute: typeof DashboardPostsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardPostsRoute: DashboardPostsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  UiRoute: UiRoute,
-  VideoRoute: VideoRoute,
+  PublicRouteRoute: PublicRouteRouteWithChildren,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

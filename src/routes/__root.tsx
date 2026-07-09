@@ -9,8 +9,6 @@ import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 import { Suspense } from 'solid-js'
 import { HydrationScript } from 'solid-js/web'
 
-import Header from '../components/shared/Header'
-
 import styleCss from '../styles.css?url'
 
 export const Route = createRootRouteWithContext()({
@@ -29,7 +27,6 @@ function RootComponent() {
       </head>
       <body>
         <Suspense>
-          <Header />
           <Outlet />
           <TanStackRouterDevtools />
         </Suspense>
