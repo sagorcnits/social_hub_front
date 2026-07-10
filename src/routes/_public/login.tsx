@@ -1,13 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/solid-router'
 import { hasToken } from '~/features/auth/store'
-import LandingPage from '~/features/landing/pages/LandingPage'
+import LoginPage from '~/features/auth/pages/LoginPage'
 
-export const Route = createFileRoute('/_public/')({
+export const Route = createFileRoute('/_public/login')({
   beforeLoad: () => {
-    // Signed-in visitors go straight to their feed.
+    // Already signed in → straight to the app.
     if (typeof window !== 'undefined' && hasToken()) {
       throw redirect({ to: '/dashboard' })
     }
   },
-  component: LandingPage,
+  component: LoginPage,
 })

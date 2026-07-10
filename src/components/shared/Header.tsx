@@ -1,4 +1,6 @@
+import { Show } from 'solid-js'
 import { Link } from '@tanstack/solid-router'
+import { currentUser } from '~/features/auth/store'
 
 export default function Header() {
   return (
@@ -7,15 +9,14 @@ export default function Header() {
         <h2 class="m-0 shrink-0 text-base font-semibold tracking-tight">
           <Link to="/" class="brand-pill">
             <span class="brand-dot" />
-            TanStack Start
+            Social Hub
           </Link>
         </h2>
-
-        <div class="ml-auto flex items-center gap-2"></div>
 
         <div class="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
           <Link
             to="/"
+            activeOptions={{ exact: true }}
             class="nav-link"
             activeProps={{ class: 'nav-link is-active' }}
           >
@@ -28,13 +29,26 @@ export default function Header() {
           >
             About
           </Link>
-          <Link
-            to="/video"
-            class="nav-link"
-            activeProps={{ class: 'nav-link is-active' }}
+        </div>
+
+        <div class="order-2 ml-auto flex items-center gap-2 sm:order-3">
+          <Show
+            when={currentUser()}
+            fallback={
+              <>
+                <Link to="/login" class="demo-button demo-button-secondary">
+                  Log in
+                </Link>
+                <Link to="/register" class="demo-button">
+                  Sign up
+                </Link>
+              </>
+            }
           >
-            Video
-          </Link>
+            <Link to="/dashboard" class="demo-button">
+              Dashboard
+            </Link>
+          </Show>
         </div>
       </nav>
     </header>

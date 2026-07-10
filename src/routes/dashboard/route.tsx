@@ -1,15 +1,13 @@
-import { createFileRoute, Outlet } from '@tanstack/solid-router'
+import { createFileRoute, redirect } from '@tanstack/solid-router'
+import { hasToken } from '~/features/auth/store'
+import DashboardShell from '~/features/dashboard/components/DashboardShell'
 
 export const Route = createFileRoute('/dashboard')({
-  component: RouteComponent,
+  beforeLoad: () => {
+    // No token → bounce to login.
+    if (typeof window !== 'undefined' && !hasToken()) {
+      throw redirect({ to: '/login' })
+    }
+  },
+  component: DashboardShell,
 })
-
-function RouteComponent() {
-  return (
-    <div>
-      <h1>Navbar</h1>
-      <Outlet />
-      <h1>Footer</h1>
-    </div>
-  )
-}

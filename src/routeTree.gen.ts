@@ -14,6 +14,8 @@ import { Route as PublicRouteRouteImport } from './routes/_public/route'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as DashboardPostsRouteImport } from './routes/dashboard/posts'
+import { Route as PublicRegisterRouteImport } from './routes/_public/register'
+import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -40,6 +42,16 @@ const DashboardPostsRoute = DashboardPostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const PublicRegisterRoute = PublicRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
+const PublicLoginRoute = PublicLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
 const PublicAboutRoute = PublicAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -50,11 +62,15 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof PublicAboutRoute
+  '/login': typeof PublicLoginRoute
+  '/register': typeof PublicRegisterRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
+  '/login': typeof PublicLoginRoute
+  '/register': typeof PublicRegisterRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -64,20 +80,32 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
+  '/_public/login': typeof PublicLoginRoute
+  '/_public/register': typeof PublicRegisterRoute
   '/dashboard/posts': typeof DashboardPostsRoute
   '/_public/': typeof PublicIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/about' | '/dashboard/posts' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/about'
+    | '/login'
+    | '/register'
+    | '/dashboard/posts'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/dashboard/posts' | '/' | '/dashboard'
+  to:
+    '/about' | '/login' | '/register' | '/dashboard/posts' | '/' | '/dashboard'
   id:
     | '__root__'
     | '/_public'
     | '/dashboard'
     | '/_public/about'
+    | '/_public/login'
+    | '/_public/register'
     | '/dashboard/posts'
     | '/_public/'
     | '/dashboard/'
@@ -125,6 +153,20 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof DashboardPostsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/_public/register': {
+      id: '/_public/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof PublicRegisterRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/login': {
+      id: '/_public/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof PublicLoginRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
     '/_public/about': {
       id: '/_public/about'
       path: '/about'
@@ -137,11 +179,15 @@ declare module '@tanstack/solid-router' {
 
 interface PublicRouteRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
+  PublicLoginRoute: typeof PublicLoginRoute
+  PublicRegisterRoute: typeof PublicRegisterRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
+  PublicLoginRoute: PublicLoginRoute,
+  PublicRegisterRoute: PublicRegisterRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
