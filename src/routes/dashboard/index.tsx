@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import FeedPage from '~/features/posts/pages/FeedPage'
 
 export const Route = createFileRoute('/dashboard/')({
-  component: RouteComponent,
+  component: FeedPage,
 })
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/"!</div>
-}

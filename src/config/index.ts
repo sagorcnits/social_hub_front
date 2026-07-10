@@ -14,3 +14,9 @@ export const TOKEN_KEYS = {
 
 /** Default page size for paginated list endpoints. */
 export const PAGE_SIZE = 20
+
+/**
+ * Serve seeded fake data instead of hitting the backend. Keep `true` while the
+ * API server is offline; flip to `false` to run against `API_BASE` for real.
+ */
+export const USE_MOCKS = false as boolean

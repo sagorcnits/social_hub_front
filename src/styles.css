@@ -472,6 +472,50 @@ code {
   transform: scaleX(1);
 }
 
+/* ── dashboard shell ─────────────────────────────────────────── */
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  color: var(--sea-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 160ms ease;
+  cursor: pointer;
+}
+
+.side-item:hover {
+  background: color-mix(in oklab, var(--lagoon) 10%, transparent);
+}
+
+.side-item-active {
+  background: color-mix(in oklab, var(--lagoon) 16%, transparent);
+  color: var(--sea-ink);
+}
+
+.side-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface-strong) 78%, transparent);
+  color: var(--lagoon-deep);
+  flex-shrink: 0;
+}
+
+.side-item-active .side-icon {
+  background: color-mix(in oklab, var(--lagoon) 26%, var(--surface-strong));
+}
+
+.topbar-tab-active {
+  color: var(--lagoon-deep) !important;
+  background: color-mix(in oklab, var(--lagoon) 14%, transparent);
+}
+
 .rise-in {
   animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }

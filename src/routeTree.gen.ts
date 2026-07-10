@@ -13,10 +13,14 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as PublicRouteRouteImport } from './routes/_public/route'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardPostsRouteImport } from './routes/dashboard/posts'
+import { Route as DashboardNotificationsRouteImport } from './routes/dashboard/notifications'
 import { Route as PublicRegisterRouteImport } from './routes/_public/register'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
+import { Route as DashboardProfileUserIdRouteImport } from './routes/dashboard/profile.$userId'
+import { Route as DashboardPostPostIdRouteImport } from './routes/dashboard/post.$postId'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -37,9 +41,19 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRouteRoute,
 } as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const DashboardPostsRoute = DashboardPostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardNotificationsRoute = DashboardNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const PublicRegisterRoute = PublicRegisterRouteImport.update({
@@ -57,6 +71,16 @@ const PublicAboutRoute = PublicAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => PublicRouteRoute,
 } as any)
+const DashboardProfileUserIdRoute = DashboardProfileUserIdRouteImport.update({
+  id: '/profile/$userId',
+  path: '/profile/$userId',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardPostPostIdRoute = DashboardPostPostIdRouteImport.update({
+  id: '/post/$postId',
+  path: '/post/$postId',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -64,16 +88,24 @@ export interface FileRoutesByFullPath {
   '/about': typeof PublicAboutRoute
   '/login': typeof PublicLoginRoute
   '/register': typeof PublicRegisterRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/posts': typeof DashboardPostsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/post/$postId': typeof DashboardPostPostIdRoute
+  '/dashboard/profile/$userId': typeof DashboardProfileUserIdRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
   '/login': typeof PublicLoginRoute
   '/register': typeof PublicRegisterRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/posts': typeof DashboardPostsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/post/$postId': typeof DashboardPostPostIdRoute
+  '/dashboard/profile/$userId': typeof DashboardProfileUserIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -82,9 +114,13 @@ export interface FileRoutesById {
   '/_public/about': typeof PublicAboutRoute
   '/_public/login': typeof PublicLoginRoute
   '/_public/register': typeof PublicRegisterRoute
+  '/dashboard/notifications': typeof DashboardNotificationsRoute
   '/dashboard/posts': typeof DashboardPostsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/_public/': typeof PublicIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/post/$postId': typeof DashboardPostPostIdRoute
+  '/dashboard/profile/$userId': typeof DashboardProfileUserIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -94,11 +130,24 @@ export interface FileRouteTypes {
     | '/about'
     | '/login'
     | '/register'
+    | '/dashboard/notifications'
     | '/dashboard/posts'
+    | '/dashboard/settings'
     | '/dashboard/'
+    | '/dashboard/post/$postId'
+    | '/dashboard/profile/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/about' | '/login' | '/register' | '/dashboard/posts' | '/' | '/dashboard'
+    | '/about'
+    | '/login'
+    | '/register'
+    | '/dashboard/notifications'
+    | '/dashboard/posts'
+    | '/dashboard/settings'
+    | '/'
+    | '/dashboard'
+    | '/dashboard/post/$postId'
+    | '/dashboard/profile/$userId'
   id:
     | '__root__'
     | '/_public'
@@ -106,9 +155,13 @@ export interface FileRouteTypes {
     | '/_public/about'
     | '/_public/login'
     | '/_public/register'
+    | '/dashboard/notifications'
     | '/dashboard/posts'
+    | '/dashboard/settings'
     | '/_public/'
     | '/dashboard/'
+    | '/dashboard/post/$postId'
+    | '/dashboard/profile/$userId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,11 +199,25 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRouteRoute
     }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/posts': {
       id: '/dashboard/posts'
       path: '/posts'
       fullPath: '/dashboard/posts'
       preLoaderRoute: typeof DashboardPostsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/notifications': {
+      id: '/dashboard/notifications'
+      path: '/notifications'
+      fullPath: '/dashboard/notifications'
+      preLoaderRoute: typeof DashboardNotificationsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_public/register': {
@@ -174,6 +241,20 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof PublicAboutRouteImport
       parentRoute: typeof PublicRouteRoute
     }
+    '/dashboard/profile/$userId': {
+      id: '/dashboard/profile/$userId'
+      path: '/profile/$userId'
+      fullPath: '/dashboard/profile/$userId'
+      preLoaderRoute: typeof DashboardProfileUserIdRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/post/$postId': {
+      id: '/dashboard/post/$postId'
+      path: '/post/$postId'
+      fullPath: '/dashboard/post/$postId'
+      preLoaderRoute: typeof DashboardPostPostIdRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
@@ -196,13 +277,21 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
 )
 
 interface DashboardRouteRouteChildren {
+  DashboardNotificationsRoute: typeof DashboardNotificationsRoute
   DashboardPostsRoute: typeof DashboardPostsRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardPostPostIdRoute: typeof DashboardPostPostIdRoute
+  DashboardProfileUserIdRoute: typeof DashboardProfileUserIdRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardNotificationsRoute: DashboardNotificationsRoute,
   DashboardPostsRoute: DashboardPostsRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardPostPostIdRoute: DashboardPostPostIdRoute,
+  DashboardProfileUserIdRoute: DashboardProfileUserIdRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

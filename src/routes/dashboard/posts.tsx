@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/solid-router'
+import MyPostsPage from '~/features/posts/pages/MyPostsPage'
 
 export const Route = createFileRoute('/dashboard/posts')({
-  component: RouteComponent,
+  component: MyPostsPage,
 })
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/posts"!</div>
-}
